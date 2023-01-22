@@ -1,0 +1,9 @@
+img{
+    width: 250px;
+}
+
+.conteiner{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    text-align: center;
+}
