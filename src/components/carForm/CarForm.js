@@ -1,78 +1,56 @@
-import {useForm} from "react-hook-form";
 import {joiResolver} from "@hookform/resolvers/joi";
+import {useForm} from "react-hook-form";
 import {carValidator} from "../../validators";
 import {carServise} from "../../services";
+import {useEffect} from "react";
 
-const CarForm = () => {
-    const {register, handleSubmit, reset, formState: {errors, isValid}, setValue} = useForm({
-        mode: 'all',
-        resolver: joiResolver(carValidator)
-    });
+const CarForm = ({setCers, updateCar}) => {
 
-    const submit = async (car) => {
-        const {data} = await carServise.create(car);
-        console.log(data)
-// мои авто
-        // id: 433
-        // brand: ivLexus
-        // price: 10000
-        // year: 2008
-        // id: 434
-        // brand: ivMetla
-        // price: 999990
-        // year: 1990
-        // id: 435
-        // brand: viLexus
-        // price: 20000
-        // year: 2008
-    };
+        const {register, handleSubmit, reset, formState: {errors, isValid}, setValue} = useForm({
+            mode: 'all',
+            resolver: joiResolver(carValidator)
+        });
 
-    return (<div>
-        <form onSubmit={handleSubmit(submit)}>
-            <input type="text" placeholder={"brand"} {...register("brand")}/>
-            {errors.brand && <span>{errors.brand.message}</span>}
+        useEffect(() => {
+            if (updateCar) {
+                setValue('brand', updateCar.brand)
+                setValue('price', updateCar.price)
+                setValue('year', updateCar.year)
+            }
+        }, [updateCar])
 
-            <input type="text" placeholder={"price"} {...register("price")}/>
-            {errors.price && <span>{errors.price.message}</span>}
+        const submit = async (car) => {
+            const {data} = await carServise.create(car);
+            setCers(prev => [...prev, data])
+            reset()
+            console.log(data)
+        };
 
-            <input type="text" placeholder={"year"} {...register("year")}/>
-            {errors.year && <span>{errors.year.message}</span>}
+        const update = async (car) =>{
+            const {data} = await carServise.updateById(updateCar.id, car)
+            if(Object.keys(data).length){
+                const {data} = await carServise.getAll()
+                setCers(data)
+            }
 
-            <button disabled={!isValid}>SAVE</button>
+            console.log(data)
+        }
 
-        </form>
-    </div>);
-};
+        return (
+            <form onSubmit={handleSubmit(updateCar ? update : submit)}>
+                <input type='text' placeholder={'brand'} {...register('brand')} />
+                {errors.brand && <span>{errors.brand.message}</span>}
+
+                <input type='text' placeholder={'price'} {...register('price', {valueAsNumber: true})} />
+                {errors.price && <span>{errors.price.message}</span>}
+
+                <input type='text' placeholder={'year'} {...register('year', {valueAsNumber: true})} />
+                {errors.year && <span>{errors.year.message}</span>}
+
+                <button disabled={!isValid}>{updateCar ? 'UPDATE' : 'SAVE'}</button>
+            </form>
+        );
+    }
+;
 
 export {CarForm};
-
-
-// Вигляд без бібліотеки Joi
-
-
-// return (<div>
-//     <form onSubmit={handleSubmit(submit)}>
-//         <input type="text" placeholder={"brand"} {...register("brand", {
-//             pattern:
-//                 {
-//                     value: /^[a-zA-Zа-яА-яёЁіІїЇ]{1,20}$/,
-//                     message: 'ТІЛЬКИ БУКВИ)'
-//                 },
-//             required: {value: true, message: 'required'}
-//         })}/>
-//         {errors.brand && <span>{errors.brand.message}</span>}
-//
-//         <input type="text" placeholder={"price"} {...register("price", {
-//             valueAsNumber: true,
-//             min: {value: 0, message: 'min 0'},
-//             max: {value: 1000000, message: 'max 1 000 000'}
-//
-//         })}/>
-//         {errors.price && <span>{errors.price.message}</span>}
-//
-//         <input type="text" placeholder={"year"} {...register("year", {
-//             valueAsNumber: true,
-//             min: {value: 1990, message: 'min 1990r'},
-//             max: {value: new Date().getFullYear(), message: `max ${new Date().getFullYear()}`}
-//         })}/>
-//         {errors.year && <span>{errors.year.message}</span>}
