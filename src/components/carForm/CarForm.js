@@ -4,7 +4,7 @@ import {carValidator} from "../../validators";
 import {carServise} from "../../services";
 import {useEffect} from "react";
 
-const CarForm = ({setCers, updateCar}) => {
+const CarForm = ({setCars, updateCar}) => {
 
         const {register, handleSubmit, reset, formState: {errors, isValid}, setValue} = useForm({
             mode: 'all',
@@ -21,7 +21,7 @@ const CarForm = ({setCers, updateCar}) => {
 
         const submit = async (car) => {
             const {data} = await carServise.create(car);
-            setCers(prev => [...prev, data])
+            setCars(prev => [...prev, data])
             reset()
             console.log(data)
         };
@@ -30,7 +30,7 @@ const CarForm = ({setCers, updateCar}) => {
             const {data} = await carServise.updateById(updateCar.id, car)
             if(Object.keys(data).length){
                 const {data} = await carServise.getAll()
-                setCers(data)
+                setCars(data)
             }
 
             console.log(data)
@@ -47,7 +47,7 @@ const CarForm = ({setCers, updateCar}) => {
                 <input type='text' placeholder={'year'} {...register('year', {valueAsNumber: true})} />
                 {errors.year && <span>{errors.year.message}</span>}
 
-                <button disabled={!isValid}>{updateCar ? 'UPDATE' : 'SAVE'}</button>
+                <button disabled={!isValid}>{updateCar?'UPDATE' : 'SAVE'}</button>
             </form>
         );
     }
