@@ -10,18 +10,25 @@
 // відображати ті чи інші маршрути можна на будь-якому рівні на ваш вибір.
 
 
-
 import {Route, Routes} from "react-router-dom";
-import {AbauntPage, AboutPage, HomePage, PostsPage, UsersPage} from "./pages";
+import {AboutPage, HomePage, PostsPage, UsersPage} from "./pages";
+import {Header} from "./components";
 
 const App = () => {
     return (
-        <Routes>
-            <Route path={'/'} element={<HomePage/>} />
-            <Route path={'users'} element={<UsersPage/>} />
-            <Route path={'posts'} element={<PostsPage/>} />
-            <Route path={'about'} element={<AboutPage/>} />
-        </Routes>
+        <div>
+
+            <Header/>
+
+            <Routes>
+                <Route path={'/'} element={<HomePage/>}/>
+                <Route path={'users'} element={<UsersPage/>}/>
+                <Route path={'posts'} element={<PostsPage/>}/>
+                <Route path={'about'} element={<AboutPage/>}/>
+            </Routes>
+
+        </div>
+
     );
 };
 
