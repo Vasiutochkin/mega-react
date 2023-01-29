@@ -3,7 +3,7 @@ import {urls} from "../config";
 
 const postsService = {
     getAll: ()=>axiosService.get(urls.posts) ,
-    getById: ()=> axiosService.get(`${urls.posts}/${id}`)
+    // getById: ()=> axiosService.get(`${urls.posts}/${Id}`)
 }
 
 export {
