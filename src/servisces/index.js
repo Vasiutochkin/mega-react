@@ -1,3 +1,2 @@
-export * from './commentsService';
-export * from './albumsService';
+export * from './CommentsService';
 export * from './axiosService';
