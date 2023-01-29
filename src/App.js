@@ -11,20 +11,25 @@
 // відображати ті чи інші маршрути можна на будь-якому рівні на ваш вибір.
 
 import {Route, Routes} from "react-router-dom";
-import {AlbumsPage, CommentsPage, HomePage, TodosPage} from "./pages";
-import {Header} from "./components";
+import {AlbumsPage, CommentsPage, HomePage, NotFoundPage, TodosPage} from "./pages";
+import {MainLayout} from "./layouts";
 
 const App = () => {
     return (
         <div>
-            <div>
-                <Header/>
-            </div>
             <Routes>
-                <Route path={'/'} element={<HomePage/>}/>
-                <Route path={'/todos'} element={<TodosPage/>}/>
-                <Route path={'/albums'} element={<AlbumsPage/>}/>
-                <Route path={'/comments'} element={<CommentsPage/>}/>
+
+                <Route path={'/'} element={<MainLayout/>}>
+
+                    <Route index element={<HomePage/>}/>
+                    <Route path={'todos'} element={<TodosPage/>}/>
+                    <Route path={'albums'} element={<AlbumsPage/>}/>
+                    <Route path={'comments'} element={<CommentsPage/>}/>
+
+                </Route>
+
+                <Route path={'*'} element={<NotFoundPage/>}/>
+
             </Routes>
         </div>
     );
