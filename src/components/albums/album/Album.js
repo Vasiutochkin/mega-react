@@ -1,4 +1,3 @@
-
 const Album = ({album}) => {
 
     const {userId, id, title} = album;
@@ -9,7 +8,6 @@ const Album = ({album}) => {
             <div>id: {id}</div>
             <div>title: {title}</div>
             <hr/>
-
         </div>
     );
 };

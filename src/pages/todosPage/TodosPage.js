@@ -1,4 +1,4 @@
-import {Todos} from "../../components/todos/Todos";
+import {Todos} from "../../components";
 
 const TodosPage = () => {
     return (

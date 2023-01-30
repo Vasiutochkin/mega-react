@@ -1,4 +1,4 @@
-import {Albums} from "../../components/albums/Albums";
+import {Albums} from "../../components";
 
 const AlbumsPage = () => {
     return (

@@ -3,7 +3,6 @@ import {urls} from "../config";
 
 const AlbumsService = {
     getAll: () => axiosService.get(urls.albums)
-
 }
 
 export {

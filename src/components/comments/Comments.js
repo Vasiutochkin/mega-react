@@ -1,19 +1,30 @@
-import {useEffect, useState} from "react";
-
-import {commentsService as CommentsService} from "../../servisces";
+import React, {useEffect, useState} from "react";
+import {CommentsService} from "../../servisces";
+import {Post} from "../post/Post";
 import {Comment} from "./comment/Comment";
-import css from '../header/Header.module.css';
-const Comments = () => {
+import css from './coments.module.css'
 
+const Comments = () => {
     const [comments, setComments] = useState([]);
 
-        useEffect(() =>{
-            CommentsService.getAll().then(({data}) => setComments([...data]))
-            },[])
+    console.log(comments);
+
+    const [post, setPost] = useState(null);
+    console.log(post);
+
+    useEffect(() => {
+        CommentsService.getAll().then(({data}) => setComments([...data]))
+    }, [])
 
     return (
         <div className={css.container}>
-            {comments.map(comment => <Comment key={comment.id} comment={comment}/>)}
+            <div>
+                {comments.map(comment => <Comment key={comment.id} comment={comment} setPost={setPost}/>)}
+            </div>
+
+            <div>
+                {post && <Post key={post.id} post={post}/>}
+            </div>
         </div>
     );
 };
