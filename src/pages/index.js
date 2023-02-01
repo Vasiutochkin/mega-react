@@ -5,3 +5,4 @@ export * from './todosPage/TodosPage';
 export * from './commentsPage/CommentsPage';
 export * from './albumsPage/AlbumsPage';
 export * from '../components/post/Post'
+export * from './loginPage/LoginPage'

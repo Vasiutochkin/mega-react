@@ -11,8 +11,9 @@
 // відображати ті чи інші маршрути можна на будь-якому рівні на ваш вибір.
 
 import {Route, Routes} from "react-router-dom";
-import {AlbumsPage, CommentsPage, HomePage, NotFoundPage, TodosPage} from "./pages";
+import {AlbumsPage, CommentsPage, HomePage, LoginPage, NotFoundPage, TodosPage} from "./pages";
 import {MainLayout} from "./layouts";
+import {RequireAuth} from "./hoc/RequireAuth";
 
 const App = () => {
     return (
@@ -22,9 +23,14 @@ const App = () => {
                     <Route index element={<HomePage/>}/>
                     <Route path={'todos'} element={<TodosPage/>}/>
                     <Route path={'albums'} element={<AlbumsPage/>}/>
-                    <Route path={'comments'} element={<CommentsPage/>}/>
+                    <Route path={'comments'} element={
+                        <RequireAuth>
+                            <CommentsPage/>
+                        </RequireAuth>}
+                    />
+                    <Route path={'login'} element={<LoginPage/>}/>
+                    <Route path={'*'} element={<NotFoundPage/>}/>
                 </Route>
-                <Route path={'*'} element={<NotFoundPage/>}/>
             </Routes>
         </div>
     );
