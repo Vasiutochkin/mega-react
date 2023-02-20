@@ -6,13 +6,14 @@ nav {
     align-items: center;
 }
 nav h1{
-    color: #fff;
+    color: #d35757;
     margin-left: 40px;
 }
 nav a {
     text-decoration: none;
 }
 nav span{
+    color: #979d41;
     cursor: pointer;
     margin-left: 40px;
     font-size: .85rem;
@@ -37,6 +38,7 @@ span #HomeLight:hover, #MoviesLight:hover, #TrendingLight:hover, #PricingLight:h
     display: flex;
     align-items: center;
 }
+
 #heading{
     color: #ff206e;
 }
